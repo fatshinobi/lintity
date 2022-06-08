@@ -1,5 +1,5 @@
 # Lintity
-Training gem (Engine) shows list of entities
+Training gem (Engine) that shows list of entities
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -20,8 +20,8 @@ $ gem install lintity
 ## System Requirements
   * Ruby >= 3.0
   * Ruby On Rails >= 7.0
-  * gem "importmap-rails"
-  * gem "stimulus-rails"
+  * gem 'importmap-rails'
+  * gem 'stimulus-rails'
   * bootstrap 5
   * gem 'font-awesome-rails'
   * ActiveRecord
