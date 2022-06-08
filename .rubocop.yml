@@ -1,0 +1,16 @@
+AllCops:
+  TargetRubyVersion: 3.0
+  Include:
+    - 'app/**/*.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20

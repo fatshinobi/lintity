@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lintity</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    "lintity/application", media: "all" %>
+  
+  <%= javascript_importmap_tags %>
+
+  <%= javascript_import_module_tag "lintity/application" %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
