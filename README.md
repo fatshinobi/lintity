@@ -23,7 +23,6 @@ $ gem install lintity
   * gem 'importmap-rails'
   * gem 'stimulus-rails'
   * bootstrap 5
-  * gem 'font-awesome-rails'
   * ActiveRecord
 
 ## Usage
