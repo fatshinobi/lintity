@@ -18,12 +18,11 @@ Or install it yourself as:
 $ gem install lintity
 ```
 ## System Requirements
-  * Ruby >= 3.0
-  * Ruby On Rails >= 7.0
+  * Ruby >= 3.4
+  * Ruby On Rails >= 8.0
   * gem 'importmap-rails'
   * gem 'stimulus-rails'
   * bootstrap 5
-  * gem 'font-awesome-rails'
   * ActiveRecord
 
 ## Usage
