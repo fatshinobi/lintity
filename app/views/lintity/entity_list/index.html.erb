@@ -29,10 +29,10 @@
               <%=
                 case field_info[:type]
                 when 'edit'
-                  caption = record[field_info[:field]]
+                  caption = record.public_send field_info[:field]
                   link_to( caption ? caption : '(empty)', field_info[:path].call(record.id) )
                 when 'info', 'numeric_filter'
-                  record[field_info[:field]]
+                  record.public_send field_info[:field]
                 end              
               %>
             </td>
