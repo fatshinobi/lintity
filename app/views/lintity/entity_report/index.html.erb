@@ -1,0 +1,42 @@
+<%# Expected @records format: an array of hashes with :groups and :details arrays of hashes.
+    # Each inner hash may contain any set of keys (e.g., :item, :qty, :cost, :price, etc.).
+%>
+
+<table style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ccc;">Section</th>
+      <%# Dynamically generate column headers based on the first group's keys %>
+      <% first_keys = (@records.first[:groups].first.keys rescue []) %>
+      <% first_keys.each do |key| %>
+        <th style="border: 1px solid #ccc;"><%= key.to_s.titleize %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @records.each do |record| %>
+      <% record[:groups].each_with_index do |group, idx| %>
+        <% font = case idx
+           when 0 then '1.5em'
+           when 1 then '1.2em'
+           else '1em'
+           end %>
+        <tr style="font-size: <%= font %>;">
+          <td style="border: 1px solid #ccc;">Group <%= idx + 1 %></td>
+          <% first_keys.each do |key| %>
+            <td style="border: 1px solid #ccc; text-align: right;"><%= group[key] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <% detail_font = '0.9em' %>
+      <% record[:details].each do |detail| %>
+        <tr style="font-size: <%= detail_font %>; background-color: #f9f9f9;">
+          <td style="border: 1px solid #ccc;">Detail</td>
+          <% first_keys.each do |key| %>
+            <td style="border: 1px solid #ccc; text-align: right;"><%= detail[key] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
