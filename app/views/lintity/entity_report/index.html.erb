@@ -1,11 +1,11 @@
 <%# Expected @records format: an array of hashes with :groups and :details arrays of hashes.
     # Each inner hash may contain any set of keys (e.g., :item, :qty, :cost, :price, etc.).
 %>
+<%= render_entity_list_header(@entity_report_header_caption, "") %>
 
 <table class="table table-bordered table-striped table-hover text-muted" style="width: 100%;">
   <thead class="table-light">
     <tr>
-      <th>Section</th>
       <%# Dynamically generate column headers based on the first group's keys %>
       <% first_keys = (@records.first[:groups].first.keys rescue []) %>
       <% first_keys.each do |key| %>
@@ -22,18 +22,26 @@
            when 1 then 'fs-6'
            else 'fs-7'
            end %>
-        <tr class="<%= size_class %>">
-          <td>Group <%= idx + 1 %></td>
+        <tr class="<%= size_class %> fw-bold">
           <% first_keys.each do |key| %>
-            <td class="text-end"><%= group[key] %></td>
+            <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
+            <% if field_setting && field_setting[:type] == "number" %>
+              <td class="text-end"><%= group[key] %></td>
+            <% else %>
+              <td><%= group[key] %></td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
       <% record[:details].each do |detail| %>
         <tr class="fs-7 bg-light">
-          <td>Detail</td>
           <% first_keys.each do |key| %>
-            <td class="text-end"><%= detail[key] %></td>
+            <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
+            <% if field_setting && field_setting[:type] == "number" %>
+              <td class="text-end"><%= detail[key] %></td>
+            <% else %>
+              <td><%= detail[key] %></td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
