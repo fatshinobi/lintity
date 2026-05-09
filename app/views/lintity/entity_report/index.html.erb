@@ -14,6 +14,7 @@
     </tr>
   </thead>
   <tbody>
+    <% sums = {} %>
     <% @records.each do |record| %>
       <% record[:groups].each_with_index do |group, idx| %>
         <%# Bootstrap font size utilities for grayscale styling %>
@@ -39,6 +40,7 @@
              <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
              <% if field_setting && field_setting[:type] == "number" %>
                <td class="text-end"><%= detail[key] %></td>
+               <% sums[key] = sums[key] ? sums[key] + detail[key].to_f : detail[key].to_f %>
              <% else %>
                <td><%= detail[key] %></td>
              <% end %>
@@ -48,15 +50,6 @@
      <% end %>
      <%# Single summary row: sum of numeric fields across all details of all records %>
      <% numeric_fields = @fields_settings.select { |f| f[:type] == "number" }.map { |f| f[:field].to_sym } %>
-     <% sums = {} %>
-     <% numeric_fields.each { |f| sums[f] = 0 } %>
-     <% @records.each do |record| %>
-       <% record[:details].each do |detail| %>
-         <% numeric_fields.each do |f| %>
-           <% sums[f] += detail[f].to_f %>
-         <% end %>
-       <% end %>
-     <% end %>
      <tr class="fs-5 fw-bold bg-secondary text-white">
        <% first_keys.each do |key| %>
          <% if numeric_fields.include?(key) %>
