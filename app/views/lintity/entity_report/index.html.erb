@@ -14,4 +14,26 @@
       <%= render partial: 'lintity/entity_report/record', locals: { record: record } %>
     <% end %>
   </tbody>
+  <%# Calculate sums for numeric fields across all records and children %>
+  <% sums = Hash.new(0) %>
+  <% @records.each do |rec| %>
+    <% rec[:details].each do |k, v| %>
+      <% field_setting = @fields_settings.find { |f| f[:field] == k.to_s } %>
+      <% if field_setting && field_setting[:type] == "number" %>
+        <% sums[k] += v if v.is_a?(Numeric) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <tfoot>
+    <tr class="fw-bold">
+      <% @records.first[:details].each_key do |key| %>
+        <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
+        <% if field_setting && field_setting[:type] == "number" %>
+          <td class="text-end"><%= sums[key] %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tr>
+  </tfoot>
 </table>
