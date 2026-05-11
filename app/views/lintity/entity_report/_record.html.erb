@@ -1,12 +1,18 @@
 <%# Recursive partial to render a record and its children %>
 <%# Expected local variable: record (hash with :details and :children) %>
-<tr>
+<%# Determine nesting level; default to 1 for top‑level records %>
+<% level = local_assigns[:level] || 1 %>
+<% if record[:children].empty? %>
+  <tr>
+<% else %>
+  <tr class="fs-<%= level + 4 %> fw-bold">
+<% end %>
   <td><%= record[:details][:item] %></td>
   <td><%= record[:details][:qty] %></td>
   <td><%= number_to_currency(record[:details][:cost]) %></td>
 </tr>
 <% if record[:children].present? %>
   <% record[:children].each do |child| %>
-    <%= render partial: 'lintity/entity_report/record', locals: { record: child } %>
-  <%- end -%>
+    <%= render partial: 'lintity/entity_report/record', locals: { record: child, level: level + 1 } %>
+  <% end %>
 <% end %>
