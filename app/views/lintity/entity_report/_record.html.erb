@@ -8,13 +8,12 @@
   <tr class="fs-<%= level + 4 %> fw-bold">
 <% end %>
   <% record[:details].each do |key, value| %>
-    <td>
-      <% if value.is_a?(Numeric) && key.to_s.downcase.include?("cost") %>
-        <%= number_to_currency(value) %>
+      <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
+      <% if field_setting && field_setting[:type] == "number" %>
+        <td class="text-end"><%= value %></td>
       <% else %>
-        <%= value %>
+        <td><%= value %></td>
       <% end %>
-    </td>
   <% end %>
 </tr>
 <% if record[:children].present? %>
