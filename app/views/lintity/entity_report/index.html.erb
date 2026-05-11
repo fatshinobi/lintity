@@ -3,11 +3,11 @@
 
 <table class="table table-bordered table-striped table-hover text-muted" style="width: 100%;">
   <thead class="table-light">
-    <tr>
-      <th>Item</th>
-      <th>Qty</th>
-      <th>Cost</th>
-    </tr>
+      <tr>
+        <% @records.first[:details].each_key do |key| %>
+          <th><%= key.to_s.titleize %></th>
+        <% end %>
+      </tr>
   </thead>
   <tbody>
     <% @records.each do |record| %>
