@@ -1,6 +1,7 @@
 <%# New nested @records format: each record has :details and optional :children %>
 <%= render_entity_list_header(@entity_report_header_caption, "") %>
 
+<% if @records.any? %>
 <table class="table table-bordered table-striped table-hover text-muted" style="width: 100%;">
   <thead class="table-light">
       <tr>
@@ -37,3 +38,6 @@
     </tr>
   </tfoot>
 </table>
+<% else %>
+  <div class="alert alert-info">No records found for the selected filters.</div>
+<% end %>
