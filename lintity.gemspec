@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'rails', '~> 8.0', '>= 8.1.3'
   spec.add_dependency 'importmap-rails'
+  spec.add_dependency 'wicked_pdf'
+  spec.add_dependency 'wkhtmltopdf-binary'
 end

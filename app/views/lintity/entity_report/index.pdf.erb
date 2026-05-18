@@ -1,0 +1,51 @@
+<%# PDF version of the entity report, reusing the same markup as HTML %>
+<%# The layout will be rendered with PDF-specific styles if provided %>
+<%# This template mirrors app/views/lintity/entity_report/index.html.erb %>
+<%# New nested @records format: each record has :details and optional :children %>
+<%= render_entity_list_header(@entity_report_header_caption, "") %>
+<% if defined?(@entity_filter_header_caption) && @entity_filter_header_caption.present? %>
+  <div class="entity-filter-header-caption" style="margin-top: 0.5rem; font-weight: normal;">
+    <%= @entity_filter_header_caption %>
+  </div>
+<% end %>
+
+<% if @records.any? %>
+  <table class="table table-bordered table-striped table-hover text-muted" style="width: 100%;">
+    <thead class="table-light">
+      <tr>
+        <% @records.first[:details].each_key do |key| %>
+          <th><%= key.to_s.titleize %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @records.each do |record| %>
+        <%= render partial: 'lintity/entity_report/record', locals: { record: record } %>
+      <% end %>
+    </tbody>
+    <%# Calculate sums for numeric fields across all records and children %>
+    <% sums = Hash.new(0) %>
+    <% @records.each do |rec| %>
+      <% rec[:details].each do |k, v| %>
+        <% field_setting = @fields_settings.find { |f| f[:field] == k.to_s } %>
+        <% if field_setting && field_setting[:type] == "number" %>
+          <% sums[k] += v if v.is_a?(Numeric) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <tfoot>
+      <tr class="fw-bold">
+        <% @records.first[:details].each_key do |key| %>
+          <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
+          <% if field_setting && field_setting[:type] == "number" %>
+            <td class="text-end"><%= sums[key] %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+        <% end %>
+      </tr>
+    </tfoot>
+  </table>
+<% else %>
+  <div class="alert alert-info">No records found for the selected filters.</div>
+<% end %>
