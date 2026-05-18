@@ -10,7 +10,26 @@
 <% end %>
 
 <% if @records.any? %>
-  <table class="table table-bordered table-striped table-hover text-muted" style="width: 100%;">
+  <!-- Added explicit borders for PDF rendering -->
+  <style>
+    .pdf-table th, .pdf-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    .pdf-table {
+      border-collapse: collapse;
+    }
+
+    tr {
+      page-break-inside: avoid;
+    }
+
+    thead {
+      display: table-header-group; /* Ensures header repeats on each page */
+    }
+  </style>
+  <table class="table table-bordered table-striped table-hover text-muted pdf-table" style="width: 100%; border: 1px solid #000; border-collapse: collapse;">
     <thead class="table-light">
       <tr>
         <% @records.first[:details].each_key do |key| %>
