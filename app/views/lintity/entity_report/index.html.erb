@@ -1,5 +1,5 @@
 <%# New nested @records format: each record has :details and optional :children %>
-<%= render_entity_list_header(@entity_report_header_caption, "") %>
+<%= render_entity_report_header(@entity_report_header_caption, @entity_report_pdf_path) %>
 <%# Add optional filter description below the header if provided %>
 <% if defined?(@entity_filter_header_caption) && @entity_filter_header_caption.present? %>
   <div class="entity-filter-header-caption" style="margin-top: 0.5rem; font-weight: normal;">
