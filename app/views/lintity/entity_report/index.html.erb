@@ -12,7 +12,12 @@
   <thead class="table-light">
       <tr>
         <% @records.first[:details].each_key do |key| %>
-          <th><%= key.to_s.titleize %></th>
+          <% field_setting = @fields_settings.find { |f| f[:field] == key.to_s } %>
+          <% if field_setting && field_setting[:caption].present? %>
+            <th><%= field_setting[:caption] %></th>
+          <% else %>
+            <th><%= key.to_s.titleize %></th>
+          <% end %>
         <% end %>
       </tr>
   </thead>
