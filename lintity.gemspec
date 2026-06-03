@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'importmap-rails'
   spec.add_dependency 'wicked_pdf'
   spec.add_dependency 'wkhtmltopdf-binary'
+  spec.add_dependency 'pagy'
 end
