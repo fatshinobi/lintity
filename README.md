@@ -41,6 +41,8 @@ class CustomersController < Lintity::EntityListController #inherit
       else
         Customer.all
       end
+    # Pagination is automatically handled by the controller
+    # @records will be paginated using pagy if it responds to paginate
   end
 
   def edit; end

@@ -1,5 +1,6 @@
 module Lintity
   class EntityListController < ApplicationController
+    include Pagy::Method
     before_action :init_fields, only: [:index]
     before_action :check_filters, only: [:index]
 
