@@ -3,6 +3,8 @@ module Lintity
     include Pagy::Method
     before_action :init_fields, only: [:index]
     before_action :check_filters, only: [:index]
+    before_action :init_records, only: [:index]
+    before_action :set_pagination, only: [:index]
 
     def index; end
 
@@ -34,6 +36,13 @@ module Lintity
           '='
         end
       @filter_field
+    end
+
+    def set_pagination
+      @pagy, @records = pagy(:offset, @records) if @records
+    end
+
+    def init_records
     end
   end
 end
